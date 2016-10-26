@@ -243,5 +243,8 @@ for k in range(2, sheet3.max_column + 1, 2):
 
 wb.save(name)
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 87ff0a3c9e63f86c4d52aa7589b35a1eba3a222b

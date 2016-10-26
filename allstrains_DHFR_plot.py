@@ -305,9 +305,12 @@ layout = go.Layout(
     legend=dict(
         x=0,
         y=1.0,
+<<<<<<< HEAD
         font(
         size=14
         )
+=======
+>>>>>>> 87ff0a3c9e63f86c4d52aa7589b35a1eba3a222b
     ),
     barmode='group'
 )
