@@ -15,8 +15,12 @@ print "The concentrations of your parts are " + str(concvector) + "."
 
 print "To have 75 ug of each part plasmid in your GG reaction, add: "
 
-
+totaldna = 0
 for j in range(1, numparts+1,1):
 	print "Part #" + str(j)
-	finalconc = float(75.0/concvector[j-1])
-	print finalconc
+	finalvol = float(75.0/concvector[j-1])
+	print finalvol
+	totaldna = totaldna + finalvol
+	
+totalwater = 8 - totaldna
+print "Also add .5 ul ligase, .5 ul GG enzyme, 1 ul T4 buffer, and " + str(totalwater) + " ul water."
