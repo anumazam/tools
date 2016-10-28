@@ -34,5 +34,5 @@ for j in range(2, numrxns+2,1):
 	
 
 from tabulate import tabulate
-print tabulate ([ sample, concvector, finalDNA, finalH2O ], floatfmt=".2f")
+print tabulate ([ concvector, finalDNA, finalH2O ], headers = sample, floatfmt=".2f")
 
