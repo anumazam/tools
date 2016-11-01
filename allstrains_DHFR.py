@@ -173,39 +173,39 @@ wb.save(name)
 
 # calculate averages and stdevs
 
-sheet3.cell(row=10, column=1).value = '=AVERAGE(A1:A6)'
-sheet3.cell(row=10, column=2).value = '=AVERAGE(B1:B6)'
-sheet3.cell(row=10, column=3).value = '=AVERAGE(C1:C6)'
-sheet3.cell(row=10, column=4).value = '=AVERAGE(D1:D6)'
-sheet3.cell(row=10, column=5).value = '=AVERAGE(E1:E6)'
-sheet3.cell(row=10, column=6).value = '=AVERAGE(F1:F6)'
-sheet3.cell(row=10, column=7).value = '=AVERAGE(G1:G6)'
-sheet3.cell(row=10, column=8).value = '=AVERAGE(H1:H6)'
-sheet3.cell(row=10, column=9).value = '=AVERAGE(I1:I6)'
-sheet3.cell(row=10, column=10).value = '=AVERAGE(J1:J6)'
-sheet3.cell(row=10, column=11).value = '=AVERAGE(K1:K6)'
-sheet3.cell(row=10, column=12).value = '=AVERAGE(L1:L6)'
-sheet3.cell(row=10, column=13).value = '=AVERAGE(M1:M6)'
-sheet3.cell(row=10, column=14).value = '=AVERAGE(N1:N6)'
-sheet3.cell(row=10, column=15).value = '=AVERAGE(O1:O6)'
-sheet3.cell(row=10, column=16).value = '=AVERAGE(P1:P6)'
+sheet3.cell(row=10, column=1).value = '=AVERAGE(A2:A7)'
+sheet3.cell(row=10, column=2).value = '=AVERAGE(B2:B7)'
+sheet3.cell(row=10, column=3).value = '=AVERAGE(C2:C7)'
+sheet3.cell(row=10, column=4).value = '=AVERAGE(D2:D7)'
+sheet3.cell(row=10, column=5).value = '=AVERAGE(E2:E7)'
+sheet3.cell(row=10, column=6).value = '=AVERAGE(F2:F7)'
+sheet3.cell(row=10, column=7).value = '=AVERAGE(G2:G7)'
+sheet3.cell(row=10, column=8).value = '=AVERAGE(H2:H7)'
+sheet3.cell(row=10, column=9).value = '=AVERAGE(I2:I7)'
+sheet3.cell(row=10, column=10).value = '=AVERAGE(J2:J7)'
+sheet3.cell(row=10, column=11).value = '=AVERAGE(K2:K7)'
+sheet3.cell(row=10, column=12).value = '=AVERAGE(L2:L7)'
+sheet3.cell(row=10, column=13).value = '=AVERAGE(M2:M7)'
+sheet3.cell(row=10, column=14).value = '=AVERAGE(N2:N7)'
+sheet3.cell(row=10, column=15).value = '=AVERAGE(O2:O7)'
+sheet3.cell(row=10, column=16).value = '=AVERAGE(P2:P7)'
 
-sheet3.cell(row=11, column=1).value = '=STDEV(A1:A6)'
-sheet3.cell(row=11, column=2).value = '=STDEV(B1:B6)'
-sheet3.cell(row=11, column=3).value = '=STDEV(C1:C6)'
-sheet3.cell(row=11, column=4).value = '=STDEV(D1:D6)'
-sheet3.cell(row=11, column=5).value = '=STDEV(E1:E6)'
-sheet3.cell(row=11, column=6).value = '=STDEV(F1:F6)'
-sheet3.cell(row=11, column=7).value = '=STDEV(G1:G6)'
-sheet3.cell(row=11, column=8).value = '=STDEV(H1:H6)'
-sheet3.cell(row=11, column=9).value = '=STDEV(I1:I6)'
-sheet3.cell(row=11, column=10).value = '=STDEV(J1:J6)'
-sheet3.cell(row=11, column=11).value = '=STDEV(K1:K6)'
-sheet3.cell(row=11, column=12).value = '=STDEV(L1:L6)'
-sheet3.cell(row=11, column=13).value = '=STDEV(M1:M6)'
-sheet3.cell(row=11, column=14).value = '=STDEV(N1:N6)'
-sheet3.cell(row=11, column=15).value = '=STDEV(O1:O6)'
-sheet3.cell(row=11, column=16).value = '=STDEV(P1:P6)'
+sheet3.cell(row=11, column=1).value = '=STDEV(A2:A7)'
+sheet3.cell(row=11, column=2).value = '=STDEV(B2:B7)'
+sheet3.cell(row=11, column=3).value = '=STDEV(C2:C7)'
+sheet3.cell(row=11, column=4).value = '=STDEV(D2:D7)'
+sheet3.cell(row=11, column=5).value = '=STDEV(E2:E7)'
+sheet3.cell(row=11, column=6).value = '=STDEV(F2:F7)'
+sheet3.cell(row=11, column=7).value = '=STDEV(G2:G7)'
+sheet3.cell(row=11, column=8).value = '=STDEV(H2:H7)'
+sheet3.cell(row=11, column=9).value = '=STDEV(I2:I7)'
+sheet3.cell(row=11, column=10).value = '=STDEV(J2:J7)'
+sheet3.cell(row=11, column=11).value = '=STDEV(K2:K7)'
+sheet3.cell(row=11, column=12).value = '=STDEV(L2:L7)'
+sheet3.cell(row=11, column=13).value = '=STDEV(M2:M7)'
+sheet3.cell(row=11, column=14).value = '=STDEV(N2:N7)'
+sheet3.cell(row=11, column=15).value = '=STDEV(O2:O7)'
+sheet3.cell(row=11, column=16).value = '=STDEV(P2:P7)'
 
 wb.save(name)
 
@@ -243,8 +243,5 @@ for k in range(2, sheet3.max_column + 1, 2):
 
 wb.save(name)
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 87ff0a3c9e63f86c4d52aa7589b35a1eba3a222b
