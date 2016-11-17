@@ -3,6 +3,7 @@
 # this is a tool for setting up equimolar golden gate assembly rxns.
 
 numparts = input("How many part plasmids will you put in your GG rxn? ")
+DNAconc = input("How much DNA in ng would you like in your rxn for each part? ")
 
 concvector = []
 
@@ -13,12 +14,12 @@ for i in range(1,numparts+1,1):
 	
 print "The concentrations of your parts are " + str(concvector) + "."
 
-print "To have 75 ug of each part plasmid in your GG reaction, add: "
+print "To have " + str(DNAconc) + " ng of each part plasmid in your GG reaction, add: "
 
 totaldna = 0
 for j in range(1, numparts+1,1):
 	print "Part #" + str(j)
-	finalvol = float(75.0/concvector[j-1])
+	finalvol = float(float(DNAconc)/concvector[j-1])
 	print finalvol
 	totaldna = totaldna + finalvol
 	
