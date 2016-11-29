@@ -48,3 +48,31 @@ for strain in range (0, 8, 1):
                 print rowIDs[n] + str(i+1),
 
 print "\n"
+
+# export the table to an excel spreadsheet
+import openpyxl
+import datetime
+import csv
+
+today = datetime.date.today()
+filename = str(today) + ".csv"
+
+fl = open(filename, 'w')
+
+writer = csv.writer(fl)
+for values in allrows:
+    writer.writerow(values)
+
+fl.close()
+
+#wb = openpyxl.Workbook()
+#sheet = wb.active
+#sheet.title = 'plate setup'
+#
+#wb.save(filename)
+
+
+
+
+
+
