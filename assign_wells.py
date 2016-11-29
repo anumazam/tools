@@ -34,4 +34,17 @@ H = board[3]
 print "\n"
 from tabulate import tabulate
 print tabulate ([ A, B, C, D, E, F, G, H ], headers = columns, showindex = rowIDs, numalign = "center")
+
+allrows = [ A, B, C, D, E, F, G, H ]
+
+# print all locations for each strain
+
+for strain in range (0, 8, 1):
+    print "\n wells for strain #" + str(strain+1) + ":"
+    
+    for n in range(0, 8, 1):
+        for i, j in enumerate(allrows[n]):
+            if j == strain+1:
+                print rowIDs[n] + str(i+1),
+
 print "\n"
