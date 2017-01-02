@@ -70,9 +70,3 @@ fl.close()
 #sheet.title = 'plate setup'
 #
 #wb.save(filename)
-
-
-
-
-
-
