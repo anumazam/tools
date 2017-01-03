@@ -65,8 +65,48 @@ for values in allrows:
 
 fl.close()
 
-#wb = openpyxl.Workbook()
-#sheet = wb.active
-#sheet.title = 'plate setup'
-#
-#wb.save(filename)
+# clean up raw data
+name = input("What is the name of your file? Enter with extension (.xlsx) and in single quotes. ")
+
+wb = openpyxl.load_workbook(name, data_only = True)
+sheet = wb.get_sheet_by_name('Sheet1')
+
+# create new sheet for correctly formatted raw data
+wb.create_sheet(index=2, title='raw data')
+sheet2 = wb.get_sheet_by_name('raw data')
+
+from openpyxl.utils import get_column_letter
+
+for y in range(1, sheet.max_column + 1, 1):
+    sheet2.column_dimensions[get_column_letter(y)].width = 12
+    y+=1
+
+wb.save(name)
+
+# populate raw data table
+x=1
+y=0
+
+for j in range(2, sheet.max_column + 1, 1):
+    for i in range(3, 18, 2):
+        y+=1
+        sheet2.cell(row=y, column=x).value = sheet.cell(row=i, column=j).value
+                
+        # go to next column
+        if y > 7:
+            y=0
+            x+=1
+
+wb.save(name)
+
+# assign data to new vectors for sorting
+
+MEVstrains = ['W103A_mev', 'L78A_mev', 'R134A_mev', 'F286A_mev', 'LIGSC_mev', 'S9G10_mev', 'S9Y197A_mev', 'ISPA_mev']
+noMEVstrains = ['W103A_nomev', 'L78A_nomev', 'R134A_nomev', 'F286A_nomev', 'LIGSC_nomev', 'S9G10_nomev', 'S9Y197A_nomev', 'ISPA_nomev']
+
+tuple(sheet2['A1': 'L8'])
+for rowOfCellObjects in sheet2['A1' : 'L8']:
+    for cellObj in rowOfCellObjects:
+        print (cellObj.coordinate, cellObj.value)
+    print ('--- END OF ROW ---')
+
