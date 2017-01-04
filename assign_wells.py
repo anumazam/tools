@@ -104,9 +104,46 @@ wb.save(name)
 MEVstrains = ['W103A_mev', 'L78A_mev', 'R134A_mev', 'F286A_mev', 'LIGSC_mev', 'S9G10_mev', 'S9Y197A_mev', 'ISPA_mev']
 noMEVstrains = ['W103A_nomev', 'L78A_nomev', 'R134A_nomev', 'F286A_nomev', 'LIGSC_nomev', 'S9G10_nomev', 'S9Y197A_nomev', 'ISPA_nomev']
 
-tuple(sheet2['A1': 'L8'])
-for rowOfCellObjects in sheet2['A1' : 'L8']:
-    for cellObj in rowOfCellObjects:
-        print (cellObj.coordinate, cellObj.value)
-    print ('--- END OF ROW ---')
+#tuple(sheet2['A1': 'L8'])
+#for rowOfCellObjects in sheet2['A1' : 'L8']:
+#    for cellObj in rowOfCellObjects:
+#        print (cellObj.coordinate, cellObj.value)
+#    print ('--- END OF ROW ---')
 
+W103A_mev = []
+L78A_mev = []
+R134A_mev = []
+F286A_mev = []
+LIGSC_mev = []
+S9G10_mev = []
+S9Y197A_mev = []
+ISPA_mev = []
+W103A_nomev = []
+L78A_nomev = []
+R134A_nomev = []
+F286A_nomev = []
+LIGSC_nomev = []
+S9G10_nomev = []
+S9Y197A_nomev = []
+ISPA_nomev = []
+
+rawdata = []
+tuple(sheet2['A1': 'L8'])
+
+
+for rowOfCellObjects in sheet2['A1' : 'A12']:
+    for cellObj in rowOfCellObjects:
+        for p in range(0, 11, 1):
+            if allrows[0][p] == 1:
+                W103A_mev.append(cellObj.value)
+                print cellObj.value
+            else:
+                rawdata.append(cellObj.value)
+
+print W103A_mev
+print "\n"
+
+print rawdata
+print "\n"
+
+print len(rawdata)
