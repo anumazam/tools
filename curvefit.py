@@ -32,13 +32,17 @@ print popt
 # plot
 plt.figure()
 
-plt.plot(xdata_noFPP, ydata_noFPP, 'g+', label='noFPP', marker='s', markersize=8)
-plt.plot(trialX_noFPP, yHYP_noFPP, 'g-',ls='--', label="noFPP fit")
+plt.plot(xdata_noFPP, ydata_noFPP, 'g+', label='-FPP', marker='s', markersize=8)
+plt.plot(trialX_noFPP, yHYP_noFPP, 'g-',ls='-')
 plt.errorbar(xdata_noFPP, ydata_noFPP, yerr=error_noFPP, linestyle = "none", color = "black")
-plt.xscale('log', nonposy='clip')
 
-plt.plot(xdata_FPP, ydata_FPP, 'b+', label='FPP', marker='s', markersize=8)
-plt.plot(trialX_FPP, yHYP_FPP, 'b-',ls='--', label="FPP fit")
+plt.xscale('log', nonposy='clip')
+plt.xlabel('AR concentration (uM)')
+plt.ylabel('Normalized response')
+plt.title('Effect of FPP on biosensor dimerization')
+
+plt.plot(xdata_FPP, ydata_FPP, 'b+', label='+200 uM FPP', marker='s', markersize=8)
+plt.plot(trialX_FPP, yHYP_FPP, 'b-',ls='-')
 plt.errorbar(xdata_FPP, ydata_FPP, yerr=error_FPP, linestyle = "none", color = "black")
 plt.legend(loc=4)
 plt.show()
