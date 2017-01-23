@@ -18,8 +18,8 @@ error_FPP = [0.093410724, 0.102987031, 0.125067467, 0.097100952, 0.147154242, 0.
 def funcHyp(x, a):
     return 1/((a/x)+1)
 
-trialX_noFPP = np.linspace(xdata_noFPP[0], xdata_noFPP[-1], 1000)
-trialX_FPP = np.linspace(xdata_noFPP[0], xdata_noFPP[-1], 1000)
+trialX_noFPP = np.linspace(0.3, 1000, 1000)
+trialX_FPP = np.linspace(0.3, 1000, 1000)
 
 # fit hyperbolic fxn
 popt, pcov = curve_fit(funcHyp, xdata_noFPP, ydata_noFPP)
@@ -30,16 +30,16 @@ popt, pcov = curve_fit(funcHyp, xdata_FPP, ydata_FPP)
 yHYP_FPP = funcHyp(trialX_FPP, *popt)
 print popt
 
+# plot
 plt.figure()
 
-plt.plot(xdata_noFPP, ydata_noFPP, 'r+', label='noFPP', marker='o')
-plt.plot(trialX_noFPP, yHYP_noFPP, 'r-',ls='--', label="noFPP fit")
-plt.errorbar(xdata_noFPP, ydata_noFPP, yerr=error_noFPP, linestyle = "none")
-#plt.legend()
-#plt.show()
+plt.plot(xdata_noFPP, ydata_noFPP, 'g+', label='noFPP', marker='s', markersize=8)
+plt.plot(trialX_noFPP, yHYP_noFPP, 'g-',ls='--', label="noFPP fit")
+plt.errorbar(xdata_noFPP, ydata_noFPP, yerr=error_noFPP, linestyle = "none", color = "black")
+plt.xscale('log', nonposy='clip')
 
-plt.plot(xdata_FPP, ydata_FPP, 'b+', label='FPP', marker='o')
+plt.plot(xdata_FPP, ydata_FPP, 'b+', label='FPP', marker='s', markersize=8)
 plt.plot(trialX_FPP, yHYP_FPP, 'b-',ls='--', label="FPP fit")
-plt.errorbar(xdata_FPP, ydata_FPP, yerr=error_FPP, linestyle = "none")
-plt.legend()
+plt.errorbar(xdata_FPP, ydata_FPP, yerr=error_FPP, linestyle = "none", color = "black")
+plt.legend(loc=4)
 plt.show()
