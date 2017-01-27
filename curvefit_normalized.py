@@ -42,11 +42,18 @@ ydata_FPP5 = [0.220035778, 0.386404293, 0.509838998, 0.610017889, 0.729874776, 0
 
 
 # define function
-def funcHyp(x, a, b):
-    return 1/((a/x)+1)
+#def funcHyp(x, a, b):
+#    return 1/((a/x)+1)
+#
+#def funcHyp2(x, b, a, c, d):
+#    return a + ( (b-a) / (1 + (c/x)**d) )
 
-trialX_noFPP = np.linspace(0.1, 1000, 1000)
-trialX_FPP = np.linspace(0.1, 1000, 1000)
+def funcHyp(x, b, a, c):
+    return a + ( (b-a) / (1 + (c/x)) )
+
+
+trialX_noFPP = np.linspace(0.1, 550, 10000)
+trialX_FPP = np.linspace(0.1, 550, 10000)
 
 popt, pcov = curve_fit(funcHyp, xdata_noFPP_green, ydata_noFPP1)
 yHYP_noFPP1 = funcHyp(trialX_noFPP, *popt)
@@ -83,10 +90,10 @@ yHYP_FPP2 = funcHyp(trialX_FPP, *popt)
 print "popt 2 FPP "
 print popt
 
-#popt, pcov = curve_fit(funcHyp, xdata_FPP_blue, ydata_FPP3)
-#yHYP_FPP3 = funcHyp(trialX_FPP, *popt)
-#print "popt 3 FPP "
-#print popt
+popt, pcov = curve_fit(funcHyp, xdata_FPP_blue, ydata_FPP3)
+yHYP_FPP3 = funcHyp(trialX_FPP, *popt)
+print "popt 3 FPP "
+print popt
 
 popt, pcov = curve_fit(funcHyp, xdata_FPP, ydata_FPP4)
 yHYP_FPP4 = funcHyp(trialX_FPP, *popt)
@@ -101,10 +108,10 @@ print popt
 # plot
 plt.figure()
 
-#plt.plot(xdata_noFPP_green, ydata_noFPP1, 'pink', ls='none', label='-FPP', marker='s', markersize=8)
-#plt.plot(trialX_noFPP, yHYP_noFPP1, 'pink',ls='-')
-#plt.plot(xdata_noFPP_green, ydata_noFPP2, 'chartreuse', ls='none', label='-FPP', marker='s', markersize=8)
-#plt.plot(trialX_noFPP, yHYP_noFPP2, 'chartreuse',ls='-')
+plt.plot(xdata_noFPP_green, ydata_noFPP1, 'pink', ls='none', label='-FPP', marker='s', markersize=8)
+plt.plot(trialX_noFPP, yHYP_noFPP1, 'pink',ls='-')
+plt.plot(xdata_noFPP_green, ydata_noFPP2, 'chartreuse', ls='none', label='-FPP', marker='s', markersize=8)
+plt.plot(trialX_noFPP, yHYP_noFPP2, 'chartreuse',ls='-')
 plt.plot(xdata_noFPP_blue, ydata_noFPP3, 'r+', label='-FPP', marker='s', markersize=8)
 plt.plot(trialX_noFPP, yHYP_noFPP3, 'r-',ls='-')
 plt.plot(xdata_noFPP, ydata_noFPP4, 'g+', label='-FPP', marker='s', markersize=8)
@@ -113,7 +120,7 @@ plt.plot(xdata_noFPP, ydata_noFPP5, 'y+', label='-FPP', marker='s', markersize=8
 plt.plot(trialX_noFPP, yHYP_noFPP5, 'y-',ls='-')
 
 
-plt.xscale('log', nonposy='clip')
+plt.xscale('linear', nonposy='clip')
 plt.xlabel('AR concentration (uM)')
 plt.ylabel('Normalized response')
 plt.title('Effect of FPP on biosensor dimerization')
@@ -122,8 +129,8 @@ plt.plot(xdata_FPP_yellow, ydata_FPP1, 'maroon', ls='none', label='+200 uM FPP',
 plt.plot(trialX_FPP, yHYP_FPP1, 'maroon',ls='-')
 plt.plot(xdata_FPP_blue, ydata_FPP2, 'm+', label='+200 uM FPP', marker='s', markersize=8)
 plt.plot(trialX_FPP, yHYP_FPP2, 'm-',ls='-')
-#plt.plot(xdata_FPP_blue, ydata_FPP3, 'k+', label='+200 uM FPP', marker='s', markersize=8)
-#plt.plot(trialX_FPP, yHYP_FPP3, 'k-',ls='-')
+plt.plot(xdata_FPP_blue, ydata_FPP3, 'k+', label='+200 uM FPP', marker='s', markersize=8)
+plt.plot(trialX_FPP, yHYP_FPP3, 'k-',ls='-')
 plt.plot(xdata_FPP, ydata_FPP4, 'c+', label='+200 uM FPP', marker='s', markersize=8)
 plt.plot(trialX_FPP, yHYP_FPP4, 'c-',ls='-')
 plt.plot(xdata_FPP, ydata_FPP5, 'b+', label='+200 uM FPP', marker='s', markersize=8)
