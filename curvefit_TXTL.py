@@ -46,14 +46,30 @@ Rydata5_norm = [z / satpt for z in RFP5]
 satpt = RFP6[-1]
 Rydata6_norm = [z / satpt for z in RFP6]
 
-# nanoBIT data
-#xdata_nanoBIT= [0.1, 1, 10, 50, 100, 200, 500, 1000]
-#nano1 = [1765.00, 1804.67, 1884.33, 1896.33, 1900.33, 1946.67, 1913.67, 1951.33]
-#satpt = nano1[-1]
-#nano1_norm = [x / satpt for x in nano1]
+# nanoBIT data from 2/9
+xdata_nanoBIT= [0.1, 0.5, 1, 2, 5, 10, 20, 50, 100, 200]
+nano1 = [7396864.623, 7396864.623, 7397359.846, 7395874.179, 7399835.956, 7397855.068, 7399340.734, 7398845.512, 7400826.401, 7400826.401]
+nano2 = [7403302.511, 7402312.067, 7404292.955, 7405778.622, 7406769.066, 7405283.4, 7407264.288, 7406769.066, 7408254.732, 7409740.399]
+nano3 = [7407759.51, 7409740.399, 7410730.843, 7410235.621, 7411226.065, 7411226.065, 7412711.732, 7410730.843, 7411226.065, 7411226.065]
+nano4 = [7349818.521, 7351304.187, 7353780.298, 7354275.52, 7354275.52, 7355761.187, 7356256.409, 7357742.075, 7359227.742, 7361208.63]
+nano5 = [7361208.63, 7361208.63, 7363684.741, 7365170.407, 7366656.073, 7367151.296, 7370617.851, 7371113.073, 7371608.295, 7373589.183]
+nano6 = [7374579.628, 7376560.516, 7377055.738, 7377550.96, 7380522.293, 7381512.737, 7383493.626, 7385474.514, 7385474.514, 7386464.959]
+satpt = nano1[-1]
+nano1_norm = [x / satpt for x in nano1]
+satpt = nano2[-1]
+nano2_norm = [x / satpt for x in nano2]
+satpt = nano3[-1]
+nano3_norm = [x / satpt for x in nano3]
+satpt = nano4[-1]
+nano4_norm = [x / satpt for x in nano4]
+satpt = nano5[-1]
+nano5_norm = [x / satpt for x in nano5]
+satpt = nano6[-1]
+nano6_norm = [x / satpt for x in nano6]
 
-compiled_ydata = np.array([ydata4_norm, ydata5_norm, ydata6_norm])
+compiled_ydata = np.array([ydata1_norm, ydata2_norm, ydata3_norm, ydata4_norm, ydata5_norm, ydata6_norm])
 compiled_Rydata = np.array([Rydata2_norm, Rydata5_norm, Rydata6_norm])
+compiled_nanodata = np.array([nano4_norm, nano5_norm, nano6_norm])
 
 ydata_avg = np.mean(compiled_ydata, axis = 0)
 ydata_std = np.std(compiled_ydata, axis = 0)
@@ -61,13 +77,16 @@ ydata_std = np.std(compiled_ydata, axis = 0)
 Rydata_avg = np.mean(compiled_Rydata, axis = 0)
 Rydata_std = np.std(compiled_Rydata, axis = 0)
 
+nano_ydata_avg = np.mean(compiled_nanodata, axis = 0)
+nano_ydata_std = np.std(compiled_nanodata, axis = 0)
+
 #def funcHyp(x, a):
 #    return 1*x/(a+x)
 
 def funcHyp(x, b, a, c):
     return a + ( (b-a) / (1 + (c/x)) )
 
-trialX = np.linspace(.1, 1000, 1000)
+trialX = np.linspace(.1, 200, 1000)
 
 # fit hyperbolic fxn
 popt, pcov = curve_fit(funcHyp, xdata, ydata1_norm)
@@ -126,11 +145,37 @@ print popt
 perr = np.sqrt(np.diag(pcov))
 print perr
 
-
-#popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano1_norm)
-#RyHYPavg = funcHyp(trialX, *popt)
-#print 'nanoBIT popt'
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano1_norm)
+nanoHYP1 = funcHyp(trialX, *popt)
 #print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano2_norm)
+nanoHYP2 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano3_norm)
+nanoHYP3 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano4_norm)
+nanoHYP4 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano5_norm)
+nanoHYP5 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano6_norm)
+nanoHYP6 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano_ydata_avg)
+nanoHYPavg = funcHyp(trialX, *popt)
+print 'average nanoBIT popt'
+print popt
+#print pcov
+perr = np.sqrt(np.diag(pcov))
+print perr
 
 # plot
 plt.figure()
@@ -149,30 +194,44 @@ plt.figure()
 #plt.plot(trialX, yHYP5, 'lightgreen',ls='--')
 #plt.plot(trialX, yHYP6, 'lightgreen',ls='--')
 #plt.plot(trialX, yHYPavg, 'g-',ls='-', label='fit')
+#
+#plt.plot(RFPxdata, Rydata2_norm, 'pink', ls = 'none', marker='s', markersize=6)
+#plt.plot(RFPxdata, Rydata4_norm, 'pink', ls = 'none', marker='s', markersize=6)
+#plt.plot(RFPxdata, Rydata5_norm, 'pink', ls = 'none', marker='s', markersize=6)
+#plt.plot(RFPxdata, Rydata6_norm, 'pink', ls = 'none', marker='s', markersize=6)
+#plt.plot(RFPxdata, Rydata_avg, 'r+', label='data', marker='s', markersize=6)
+#plt.plot(trialX, RyHYP2, 'pink',ls='--')
+#plt.plot(trialX, RyHYP4, 'pink',ls='--')
+#plt.plot(trialX, RyHYP5, 'pink',ls='--')
+#plt.plot(trialX, RyHYP6, 'pink',ls='--')
+#plt.plot(trialX, RyHYPavg, 'r-',ls='-', label='fit')
 
-plt.plot(RFPxdata, Rydata2_norm, 'pink', ls = 'none', marker='s', markersize=6)
-plt.plot(RFPxdata, Rydata4_norm, 'pink', ls = 'none', marker='s', markersize=6)
-plt.plot(RFPxdata, Rydata5_norm, 'pink', ls = 'none', marker='s', markersize=6)
-plt.plot(RFPxdata, Rydata6_norm, 'pink', ls = 'none', marker='s', markersize=6)
-plt.plot(RFPxdata, Rydata_avg, 'r+', label='data', marker='s', markersize=6)
-plt.plot(trialX, RyHYP2, 'pink',ls='--')
-plt.plot(trialX, RyHYP4, 'pink',ls='--')
-plt.plot(trialX, RyHYP5, 'pink',ls='--')
-plt.plot(trialX, RyHYP6, 'pink',ls='--')
-plt.plot(trialX, RyHYPavg, 'r-',ls='-', label='fit')
+#plt.plot(xdata_nanoBIT, nano1_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
+#plt.plot(xdata_nanoBIT, nano2_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
+#plt.plot(xdata_nanoBIT, nano3_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
+plt.plot(xdata_nanoBIT, nano4_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
+plt.plot(xdata_nanoBIT, nano5_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
+plt.plot(xdata_nanoBIT, nano6_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
+plt.plot(xdata_nanoBIT, nano_ydata_avg, 'k+', ls = 'none', marker='s', markersize=6)
+#plt.plot(trialX, nanoHYP1, 'lightgray',ls='--')
+#plt.plot(trialX, nanoHYP2, 'lightgray',ls='--')
+#plt.plot(trialX, nanoHYP3, 'lightgray',ls='--')
+plt.plot(trialX, nanoHYP4, 'lightgray',ls='--')
+plt.plot(trialX, nanoHYP5, 'lightgray',ls='--')
+plt.plot(trialX, nanoHYP6, 'lightgray',ls='--')
+plt.plot(trialX, nanoHYPavg, 'black',ls='--')
 
-#plt.plot(xdata_nanoBIT, nano1_norm, 'k+', ls = 'none', marker='s', markersize=6)
-#error_nano = [30.81, 66.16, 27.57, 50.21, 37.23, 40.20, 38.80, 69.29]
-#plt.errorbar(xdata_nanoBIT, nano1_norm, yerr=error_nano, linestyle = "none", color = "black")
+
+plt.errorbar(xdata_nanoBIT, nano_ydata_avg, yerr=nano_ydata_std, linestyle = "none", color = "black")
 
 
 plt.xlabel('FPP concentration (uM)')
-plt.ylabel('Normalized fluorescence (AU)')
+plt.ylabel('Normalized response (AU)')
 #plt.title('FPP titration')
 
 #plt.errorbar(xdata, ydata_avg, yerr=ydata_std, linestyle = "none", color = "black")
-plt.errorbar(RFPxdata, Rydata_avg, yerr=Rydata_std, linestyle = "none", color = "black")
-plt.xscale('log', nonposy='clip')
+#plt.errorbar(RFPxdata, Rydata_avg, yerr=Rydata_std, linestyle = "none", color = "black")
+plt.xscale('linear', nonposy='clip')
 #plt.ylim(0.6, 1.05)
 
 plt.legend(loc=4)
