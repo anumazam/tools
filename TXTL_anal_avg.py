@@ -11,15 +11,13 @@ from matplotlib import pyplot as plt
 
 xdata = [0.1, 0.5, 1, 2, 5, 10, 20, 50, 100, 200]
 
-RFP1 = [2.49E+05, 2.15E+05, 2.52E+05, 2.17E+05, 2.29E+05, 2.31E+05, 2.70E+05, 2.65E+05, 2.46E+05, 2.47E+05] #1/23
-RFP2 = [1.83E+05, 2.17E+05, 2.40E+05, 2.44E+05, 2.53E+05, 2.50E+05, 2.59E+05, 2.60E+05, 2.86E+05, 2.77E+05] #1/23
-RFP3 = [1.61E+05, 1.91E+05, 2.22E+05, 2.83E+05, 2.50E+05, 2.99E+05, 2.63E+05, 2.67E+05, 2.74E+05, 2.63E+05] #1/23
-RFP4 = [82092.67, 80245.33, 80172.33, 78625.33, 82553.67, 75538.33, 79585.67, 86038.67, 86300.67, 92251.33] #2/4
-RFP5 = [73811.33, 76708.33, 77805.00, 74427.67, 73278.67, 80947.67, 83713.00, 85375.33, 86835.00, 92648.67] #2/4
-RFP6 = [87338.67, 86318.00, 85106.00, 80333.00, 83650.33, 79777.33, 91419.67, 91898.33, 87393.67, 94828.00] #2/4
-RFP7 = [2.67E+05, 1.80E+05, 1.81E+05, 2.30E+05, 2.77E+05, 2.98E+05, 3.10E+05, 2.94E+05, 2.71E+05, 3.17E+05] #2/10
-RFP8 = [1.34E+05, 2.15E+05, 1.99E+05, 2.33E+05, 3.20E+05, 2.70E+05, 3.09E+05, 2.77E+05, 3.10E+05, 2.57E+05] #2/10
-RFP9 = [81749, 1.30E+05, 1.67E+05, 2.44E+05, 2.83E+05, 2.62E+05, 2.49E+05, 3.25E+05, 2.70E+05, 2.01E+05] #2/10
+RFP1 = [197676.67, 207636.67, 237793.33, 247993.33, 243903.33, 260283.33, 263960.00, 264170.00, 268793.33, 262210.00] #1/23
+RFP2 = [73811.33, 76708.33, 77805.00, 74427.67, 73278.67, 80947.67, 83713.00, 85375.33, 86835.00, 92648.67] #2/4
+RFP3 = [160946.33, 174836.67, 182423.33, 235703.33, 293670.00, 276890.00, 289036.67, 298386.67, 283650.00, 258313.33] #2/10
+
+#RFP1_error = [46125.72, 14889.63, 15154.07, 32813.19, 13235.25, 35282.29, 5273.22, 3761.06, 20505.62, 15042.22]
+#RFP2_error = [9627.77, 5127.72, 2108.81, 3841.39, 9958.73, 3714.66, 4850.61, 8994.54, 12911.58, 10184.63]
+#RFP3_error = [95514.86, 42732.11, 15790.41, 7064.17, 23302.13, 18997.38, 34851.05, 24503.38, 22805.06, 58030.00]
 
 # normalization to saturation point
 
@@ -29,22 +27,17 @@ satpt = RFP2[-1]
 ydata2_norm = [x / satpt for x in RFP2]
 satpt = RFP3[-1]
 ydata3_norm = [x / satpt for x in RFP3]
-satpt = RFP4[-1]
-ydata4_norm = [x / satpt for x in RFP4]
-satpt = RFP5[-1]
-ydata5_norm = [x / satpt for x in RFP5]
-satpt = RFP6[-1]
-ydata6_norm = [x / satpt for x in RFP6]
-satpt = RFP7[-1]
-ydata7_norm = [x / satpt for x in RFP7]
-satpt = RFP8[-1]
-ydata8_norm = [x / satpt for x in RFP8]
-satpt = RFP9[-1]
-ydata9_norm = [x / satpt for x in RFP9]
+
+#satpt = RFP1_error[-1]
+#ydata1_norm_error = [x / satpt for x in RFP1_error]
+#satpt = RFP2_error[-1]
+#ydata2_norm_error = [x / satpt for x in RFP2_error]
+#satpt = RFP3_error[-1]
+#ydata3_norm_error = [x / satpt for x in RFP3_error]
 
 # compute statistics
 
-compiled_ydata = np.array([ydata1_norm, ydata2_norm, ydata3_norm, ydata4_norm, ydata5_norm, ydata6_norm, ydata7_norm, ydata8_norm, ydata9_norm])
+compiled_ydata = np.array([ydata1_norm, ydata2_norm, ydata3_norm])
 
 ydata_avg = np.mean(compiled_ydata, axis = 0)
 ydata_std = np.std(compiled_ydata, axis = 0)
@@ -70,24 +63,6 @@ yHYP2 = funcHyp(trialX, *popt)
 popt, pcov = curve_fit(funcHyp, xdata, ydata3_norm)
 yHYP3 = funcHyp(trialX, *popt)
 
-popt, pcov = curve_fit(funcHyp, xdata, ydata4_norm)
-yHYP4 = funcHyp(trialX, *popt)
-
-popt, pcov = curve_fit(funcHyp, xdata, ydata5_norm)
-yHYP5 = funcHyp(trialX, *popt)
-
-popt, pcov = curve_fit(funcHyp, xdata, ydata6_norm)
-yHYP6 = funcHyp(trialX, *popt)
-
-popt, pcov = curve_fit(funcHyp, xdata, ydata7_norm)
-yHYP7 = funcHyp(trialX, *popt)
-
-popt, pcov = curve_fit(funcHyp, xdata, ydata8_norm)
-yHYP8 = funcHyp(trialX, *popt)
-
-popt, pcov = curve_fit(funcHyp, xdata, ydata9_norm)
-yHYP9 = funcHyp(trialX, *popt)
-
 popt, pcov = curve_fit(funcHyp, xdata, ydata_avg)
 yHYPavg = funcHyp(trialX, *popt)
 print 'Calculated parameters from curve-fitting, [max, min, EC50]: '
@@ -103,29 +78,22 @@ plt.figure()
 plt.plot(xdata, ydata1_norm, '#FFA07A', ls = 'none', marker='s', markersize=5)
 plt.plot(xdata, ydata2_norm, '#FA8072', ls = 'none', marker='s', markersize=5)
 plt.plot(xdata, ydata3_norm, '#E9967A', ls = 'none', marker='s', markersize=5)
-plt.plot(xdata, ydata4_norm, '#F08080', ls = 'none', marker='s', markersize=5)
-plt.plot(xdata, ydata5_norm, '#CD5C5C', ls = 'none', marker='s', markersize=5)
-plt.plot(xdata, ydata6_norm, '#DC143C', ls = 'none', marker='s', markersize=5)
-plt.plot(xdata, ydata7_norm, '#FF0000', ls = 'none', marker='s', markersize=5)
-plt.plot(xdata, ydata8_norm, '#B22222', ls = 'none', marker='s', markersize=5)
-plt.plot(xdata, ydata9_norm, '#8B0000', ls = 'none', marker='s', markersize=5)
+
 plt.plot(xdata, ydata_avg, 'k+', label='data', marker='s', markersize=5)
 
 plt.plot(trialX, yHYP1, '#FFA07A',ls='dotted')
 plt.plot(trialX, yHYP2, '#FA8072',ls='dotted')
 plt.plot(trialX, yHYP3, '#E9967A',ls='dotted')
-plt.plot(trialX, yHYP4, '#F08080',ls='dotted')
-plt.plot(trialX, yHYP5, '#CD5C5C',ls='dotted')
-plt.plot(trialX, yHYP6, '#DC143C',ls='dotted')
-plt.plot(trialX, yHYP7, '#FF0000',ls='dotted')
-plt.plot(trialX, yHYP8, '#B22222',ls='dotted')
-plt.plot(trialX, yHYP9, '#8B0000',ls='dotted')
+
 plt.plot(trialX, yHYPavg, 'k-',ls='-', lw='3', label='fit')
 
+plt.xscale('log', nonposy='clip')
+
+#plt.errorbar(xdata, ydata1_norm, yerr=ydata1_norm_error, linestyle = "none", color = "#FFA07A")
 plt.errorbar(xdata, ydata_avg, yerr=ydata_std, linestyle = "none", color = "black")
 
+
 plt.xlabel('FPP concentration (uM)')
-plt.xscale('linear', nonposy='clip')
 plt.ylabel('Normalized response (AU)')
 plt.title('FPP titration')
 
