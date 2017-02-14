@@ -51,9 +51,12 @@ xdata_nanoBIT= [0.1, 0.5, 1, 2, 5, 10, 20, 50, 100, 200]
 nano1 = [7396864.623, 7396864.623, 7397359.846, 7395874.179, 7399835.956, 7397855.068, 7399340.734, 7398845.512, 7400826.401, 7400826.401]
 nano2 = [7403302.511, 7402312.067, 7404292.955, 7405778.622, 7406769.066, 7405283.4, 7407264.288, 7406769.066, 7408254.732, 7409740.399]
 nano3 = [7407759.51, 7409740.399, 7410730.843, 7410235.621, 7411226.065, 7411226.065, 7412711.732, 7410730.843, 7411226.065, 7411226.065]
-nano4 = [7349818.521, 7351304.187, 7353780.298, 7354275.52, 7354275.52, 7355761.187, 7356256.409, 7357742.075, 7359227.742, 7361208.63]
-nano5 = [7361208.63, 7361208.63, 7363684.741, 7365170.407, 7366656.073, 7367151.296, 7370617.851, 7371113.073, 7371608.295, 7373589.183]
-nano6 = [7374579.628, 7376560.516, 7377055.738, 7377550.96, 7380522.293, 7381512.737, 7383493.626, 7385474.514, 7385474.514, 7386464.959]
+nano4 = [49818.521, 51304.187, 53780.298, 54275.52, 54275.52, 55761.187, 56256.409, 57742.075, 59227.742, 61208.63]
+nano5 = [61208.63, 61208.63, 63684.741, 65170.407, 66656.073, 67151.296, 70617.851, 71113.073, 71608.295, 73589.183]
+nano6 = [74579.628, 76560.516, 77055.738, 77550.96, 80522.293, 81512.737, 83493.626, 85474.514, 85474.514, 86464.959]
+nano7 = [295839.309, 297324.975, 299801.086, 300791.53, 303267.641, 308219.862, 307229.418, 308219.862, 312676.861, 312676.861]
+nano8 = [17133.86, 18124.305, 18124.305, 22581.304, 22581.304, 21590.86, 26047.859, 28523.969, 29514.414, 29019.192]
+nano9 = [7337437.968, 7339418.856, 7339418.856, 7341894.967, 7343875.855, 7345361.522, 7349818.521, 7349818.521, 7355761.187, 7359227.742]
 satpt = nano1[-1]
 nano1_norm = [x / satpt for x in nano1]
 satpt = nano2[-1]
@@ -66,8 +69,15 @@ satpt = nano5[-1]
 nano5_norm = [x / satpt for x in nano5]
 satpt = nano6[-1]
 nano6_norm = [x / satpt for x in nano6]
+satpt = nano7[-1]
+nano7_norm = [x / satpt for x in nano7]
+satpt = nano8[-1]
+nano8_norm = [x / satpt for x in nano8]
+satpt = nano9[-1]
+nano9_norm = [x / satpt for x in nano9]
 
-compiled_ydata = np.array([ydata1_norm, ydata2_norm, ydata3_norm, ydata4_norm, ydata5_norm, ydata6_norm])
+
+compiled_ydata = np.array([ydata1_norm, ydata2_norm, ydata3_norm])
 compiled_Rydata = np.array([Rydata2_norm, Rydata5_norm, Rydata6_norm])
 compiled_nanodata = np.array([nano4_norm, nano5_norm, nano6_norm])
 
@@ -86,7 +96,7 @@ nano_ydata_std = np.std(compiled_nanodata, axis = 0)
 def funcHyp(x, b, a, c):
     return a + ( (b-a) / (1 + (c/x)) )
 
-trialX = np.linspace(.1, 200, 1000)
+trialX = np.linspace(.1, 20, 1000)
 
 # fit hyperbolic fxn
 popt, pcov = curve_fit(funcHyp, xdata, ydata1_norm)
@@ -169,6 +179,18 @@ popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano6_norm)
 nanoHYP6 = funcHyp(trialX, *popt)
 #print popt
 
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano7_norm)
+nanoHYP7 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano8_norm)
+nanoHYP8 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano9_norm)
+nanoHYP9 = funcHyp(trialX, *popt)
+#print popt
+
 popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano_ydata_avg)
 nanoHYPavg = funcHyp(trialX, *popt)
 print 'average nanoBIT popt'
@@ -180,20 +202,20 @@ print perr
 # plot
 plt.figure()
 
-#plt.plot(xdata, ydata1_norm, 'lightgreen', ls = 'none', marker='s', markersize=6)
-#plt.plot(xdata, ydata2_norm, 'lightgreen', ls = 'none', marker='s', markersize=6)
-#plt.plot(xdata, ydata3_norm, 'lightgreen', ls = 'none', marker='s', markersize=6)
-#plt.plot(xdata, ydata4_norm, 'lightgreen', ls = 'none', marker='s', markersize=6)
-#plt.plot(xdata, ydata5_norm, 'lightgreen', ls = 'none', marker='s', markersize=6)
-#plt.plot(xdata, ydata6_norm, 'lightgreen', ls = 'none', marker='s', markersize=6)
-#plt.plot(xdata, ydata_avg, 'g+', label='data', marker='s', markersize=6)
-#plt.plot(trialX, yHYP1, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYP2, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYP3, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYP4, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYP5, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYP6, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYPavg, 'g-',ls='-', label='fit')
+#plt.plot(xdata, ydata1_norm, '#d5f4e6', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(xdata, ydata2_norm, '#80ced6', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(xdata, ydata3_norm, '#fefbd8', ls = 'none', marker='s', markersize=5, mec='k')
+##plt.plot(xdata, ydata4_norm, 'lightgreen', ls = 'none', marker='s', markersize=5, mec='k')
+##plt.plot(xdata, ydata5_norm, 'lightgreen', ls = 'none', marker='s', markersize=5, mec='k')
+##plt.plot(xdata, ydata6_norm, 'lightgreen', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(xdata, ydata_avg, 'k+', label='data', marker='s', markersize=5, mec='k')
+#plt.plot(trialX, yHYP1, '#d5f4e6',ls='dotted')
+#plt.plot(trialX, yHYP2, '#80ced6',ls='dotted')
+#plt.plot(trialX, yHYP3, '#fefbd8',ls='dotted')
+##plt.plot(trialX, yHYP4, 'lightgreen',ls='--')
+##plt.plot(trialX, yHYP5, 'lightgreen',ls='--')
+##plt.plot(trialX, yHYP6, 'lightgreen',ls='--')
+#plt.plot(trialX, yHYPavg, 'k-',ls='-', label='fit')
 #
 #plt.plot(RFPxdata, Rydata2_norm, 'pink', ls = 'none', marker='s', markersize=6)
 #plt.plot(RFPxdata, Rydata4_norm, 'pink', ls = 'none', marker='s', markersize=6)
@@ -209,17 +231,23 @@ plt.figure()
 #plt.plot(xdata_nanoBIT, nano1_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
 #plt.plot(xdata_nanoBIT, nano2_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
 #plt.plot(xdata_nanoBIT, nano3_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
-plt.plot(xdata_nanoBIT, nano4_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
-plt.plot(xdata_nanoBIT, nano5_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
-plt.plot(xdata_nanoBIT, nano6_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
-plt.plot(xdata_nanoBIT, nano_ydata_avg, 'k+', ls = 'none', marker='s', markersize=6)
+plt.plot(xdata_nanoBIT, nano4_norm, '#bccad6', ls = 'none', marker='s', markersize=5, mec='k')
+plt.plot(xdata_nanoBIT, nano5_norm, '#8d9db6', ls = 'none', marker='s', markersize=5, mec='k')
+plt.plot(xdata_nanoBIT, nano6_norm, '#667292', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(xdata_nanoBIT, nano7_norm, '#f1e3dd', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(xdata_nanoBIT, nano8_norm, '#cfe0e8', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(xdata_nanoBIT, nano9_norm, 'lightgray', ls = 'none', marker='s', markersize=5, mec='k')
+plt.plot(xdata_nanoBIT, nano_ydata_avg, 'k+', ls = 'none', marker='s', markersize=5, label='data', mec='k')
 #plt.plot(trialX, nanoHYP1, 'lightgray',ls='--')
 #plt.plot(trialX, nanoHYP2, 'lightgray',ls='--')
 #plt.plot(trialX, nanoHYP3, 'lightgray',ls='--')
-plt.plot(trialX, nanoHYP4, 'lightgray',ls='--')
-plt.plot(trialX, nanoHYP5, 'lightgray',ls='--')
-plt.plot(trialX, nanoHYP6, 'lightgray',ls='--')
-plt.plot(trialX, nanoHYPavg, 'black',ls='--')
+plt.plot(trialX, nanoHYP4, '#bccad6',ls='dotted')
+plt.plot(trialX, nanoHYP5, '#8d9db6',ls='dotted')
+plt.plot(trialX, nanoHYP6, '#667292',ls='dotted')
+#plt.plot(trialX, nanoHYP7, '#f1e3dd',ls='dotted')
+#plt.plot(trialX, nanoHYP8, '#cfe0e8',ls='dotted')
+#plt.plot(trialX, nanoHYP9, 'yellow',ls='--')
+plt.plot(trialX, nanoHYPavg, 'black',ls='-', label='fit')
 
 
 plt.errorbar(xdata_nanoBIT, nano_ydata_avg, yerr=nano_ydata_std, linestyle = "none", color = "black")
@@ -233,6 +261,8 @@ plt.ylabel('Normalized response (AU)')
 #plt.errorbar(RFPxdata, Rydata_avg, yerr=Rydata_std, linestyle = "none", color = "black")
 plt.xscale('linear', nonposy='clip')
 #plt.ylim(0.6, 1.05)
+plt.xlim(-1, 21)
+
 
 plt.legend(loc=4)
 plt.show()
