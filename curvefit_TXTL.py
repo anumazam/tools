@@ -5,8 +5,11 @@
 import numpy as np
 from scipy.optimize import curve_fit
 from matplotlib import pyplot as plt
+import matplotlib
+import matplotlib as mpl
 
 xdata = [0.1, 0.5, 1, 2, 5, 10, 20]
+
 
 # ddGFP data
 ydata1 = [30610.33, 33610.33, 36984.00, 39845.33, 41518.67, 41808.00, 45431.00] # 1/23
@@ -16,9 +19,9 @@ ydata4 = [44704.67, 42012.67, 46372.00, 47514.00, 50669.33, 50366.00, 49915.33] 
 ydata5 = [44130.33, 42466.33, 45767.33, 47000.00, 49649.33, 49393.00, 49245.00] # 2/4
 ydata6 = [44873.67, 42439.33, 47272.00, 47111.00, 50168.33, 49650.33, 49846.33] # 2/4
 satpt = ydata1[-1]
-ydata1_norm = [x / satpt for x in ydata1]
+ydata1_norm = [x / 44000 for x in ydata1]
 satpt = ydata2[-1]
-ydata2_norm = [y / satpt for y in ydata2]
+ydata2_norm = [y / 43000 for y in ydata2]
 satpt = ydata3[-1]
 ydata3_norm = [z / satpt for z in ydata3]
 satpt = ydata4[-1]
@@ -51,12 +54,15 @@ xdata_nanoBIT= [0.1, 0.5, 1, 2, 5, 10, 20, 50, 100, 200]
 nano1 = [7396864.623, 7396864.623, 7397359.846, 7395874.179, 7399835.956, 7397855.068, 7399340.734, 7398845.512, 7400826.401, 7400826.401]
 nano2 = [7403302.511, 7402312.067, 7404292.955, 7405778.622, 7406769.066, 7405283.4, 7407264.288, 7406769.066, 7408254.732, 7409740.399]
 nano3 = [7407759.51, 7409740.399, 7410730.843, 7410235.621, 7411226.065, 7411226.065, 7412711.732, 7410730.843, 7411226.065, 7411226.065]
-nano4 = [49818.521, 51304.187, 53780.298, 54275.52, 54275.52, 55761.187, 56256.409, 57742.075, 59227.742, 61208.63]
-nano5 = [61208.63, 61208.63, 63684.741, 65170.407, 66656.073, 67151.296, 70617.851, 71113.073, 71608.295, 73589.183]
-nano6 = [74579.628, 76560.516, 77055.738, 77550.96, 80522.293, 81512.737, 83493.626, 85474.514, 85474.514, 86464.959]
-nano7 = [295839.309, 297324.975, 299801.086, 300791.53, 303267.641, 308219.862, 307229.418, 308219.862, 312676.861, 312676.861]
-nano8 = [17133.86, 18124.305, 18124.305, 22581.304, 22581.304, 21590.86, 26047.859, 28523.969, 29514.414, 29019.192]
-nano9 = [7337437.968, 7339418.856, 7339418.856, 7341894.967, 7343875.855, 7345361.522, 7349818.521, 7349818.521, 7355761.187, 7359227.742]
+nano4 = [9818.521, 11304.187, 13780.298, 14275.52, 14275.52, 15761.187, 16256.409, 17742.075, 19227.742, 21208.63]
+nano5 = [1208.63, 1208.63, 3684.741, 5170.407, 6656.073, 7151.296, 10617.851, 11113.073, 11608.295, 13589.183]
+nano6 = [4579.628, 6560.516, 7055.738, 7550.96, 10522.293, 11512.737, 13493.626, 15474.514, 15474.514, 16464.959]
+nano7 = [5839.31, 7324.98, 9801.09, 10791.53, 13267.64, 18219.86, 17229.42, 18219.86, 22676.86, 22676.86]
+nano8 = [7133.86, 8124.30, 8124.30, 12581.30, 12581.30, 11590.86, 16047.86, 18523.97, 19514.41, 19019.19]
+nano9 = [7437.97, 9418.86, 9418.86, 11894.97, 13875.86, 15361.52, 19818.52, 19818.52, 25761.19, 29227.74]
+nano10 = [6751.630852, 7742.075114, 9227.741508, 17151.29561, 14179.96282, 17151.29561, 19132.18413, 18141.73987, 19132.18413, 23589.18331]
+nano11 = [5570.071837, 6065.293968, 10027.07102, 11512.73741, 12503.18167, 13493.62594, 15474.51446, 15969.73659, 16960.18085, 18445.84725]
+nano12 = [921.957903, 4883.734953, 3893.29069, 5378.957084, 8350.289871, 11321.62266, 8845.512002, 10826.40053, 12312.06692, 15283.39971]
 satpt = nano1[-1]
 nano1_norm = [x / satpt for x in nano1]
 satpt = nano2[-1]
@@ -75,11 +81,29 @@ satpt = nano8[-1]
 nano8_norm = [x / satpt for x in nano8]
 satpt = nano9[-1]
 nano9_norm = [x / satpt for x in nano9]
+satpt = nano10[-1]
+nano10_norm = [x / satpt for x in nano10]
+satpt = nano11[-1]
+nano11_norm = [x / satpt for x in nano11]
+satpt = nano12[-1]
+nano12_norm = [x / satpt for x in nano12]
 
+# nanoBIT data WITH MALTOSE 2/15
+xdata_nanoBIT= [0.1, 0.5, 1, 2, 5, 10, 20, 50, 100, 200]
+maltose1 = [522.293149, 522.293149, 2007.959542, 2503.181673, 5969.736592, 7455.402985, 8941.069379, 9436.29151, 10426.73577, 14388.51282]
+maltose2 = [4883.734953, 4883.734953, 7855.06774, 9340.734133, 9340.734133, 11816.84479, 13302.51118, 13302.51118, 17759.51036, 18749.95463]
+maltose3 = [1721.287413, 4692.6202, 7168.730856, 5187.842331, 5187.842331, 9644.841512, 13111.39643, 9149.619381, 12120.95217, 15092.28495]
+satpt = maltose1[-1]
+maltose1_norm = [x / satpt for x in maltose1]
+satpt = maltose2[-1]
+maltose2_norm = [x / satpt for x in maltose2]
+satpt = maltose3[-1]
+maltose3_norm = [x / satpt for x in maltose3]
 
 compiled_ydata = np.array([ydata1_norm, ydata2_norm, ydata3_norm])
 compiled_Rydata = np.array([Rydata2_norm, Rydata5_norm, Rydata6_norm])
-compiled_nanodata = np.array([nano4_norm, nano5_norm, nano6_norm])
+compiled_nanodata = np.array([nano10_norm, nano11_norm, nano12_norm])
+compiled_maltosedata = np.array([maltose1_norm, maltose2_norm, maltose3_norm])
 
 ydata_avg = np.mean(compiled_ydata, axis = 0)
 ydata_std = np.std(compiled_ydata, axis = 0)
@@ -90,13 +114,16 @@ Rydata_std = np.std(compiled_Rydata, axis = 0)
 nano_ydata_avg = np.mean(compiled_nanodata, axis = 0)
 nano_ydata_std = np.std(compiled_nanodata, axis = 0)
 
+maltose_ydata_avg = np.mean(compiled_maltosedata, axis = 0)
+maltose_ydata_std = np.std(compiled_maltosedata, axis = 0)
+
 #def funcHyp(x, a):
 #    return 1*x/(a+x)
 
 def funcHyp(x, b, a, c):
     return a + ( (b-a) / (1 + (c/x)) )
 
-trialX = np.linspace(.1, 20, 1000)
+trialX = np.linspace(.1, 200, 1000)
 
 # fit hyperbolic fxn
 popt, pcov = curve_fit(funcHyp, xdata, ydata1_norm)
@@ -191,6 +218,18 @@ popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano9_norm)
 nanoHYP9 = funcHyp(trialX, *popt)
 #print popt
 
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano10_norm)
+nanoHYP10 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano11_norm)
+nanoHYP11 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano12_norm)
+nanoHYP12 = funcHyp(trialX, *popt)
+#print popt
+
 popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, nano_ydata_avg)
 nanoHYPavg = funcHyp(trialX, *popt)
 print 'average nanoBIT popt'
@@ -199,8 +238,35 @@ print popt
 perr = np.sqrt(np.diag(pcov))
 print perr
 
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, maltose1_norm)
+maltoseHYP1 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, maltose2_norm)
+maltoseHYP2 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, maltose3_norm)
+maltoseHYP3 = funcHyp(trialX, *popt)
+#print popt
+
+popt, pcov = curve_fit(funcHyp, xdata_nanoBIT, maltose_ydata_avg)
+maltoseHYPavg = funcHyp(trialX, *popt)
+print 'average maltose popt'
+print popt
+#print pcov
+perr = np.sqrt(np.diag(pcov))
+print perr
+
 # plot
-plt.figure()
+#plt.figure()
+
+plt.figure(num=None, figsize=(6, 5), dpi=80, facecolor='w', edgecolor='k')
+font = {'family' : 'arial',
+    'weight' : 'regular',
+        'size'   : 18}
+matplotlib.rc('font', **font)
+
 
 #plt.plot(xdata, ydata1_norm, '#d5f4e6', ls = 'none', marker='s', markersize=5, mec='k')
 #plt.plot(xdata, ydata2_norm, '#80ced6', ls = 'none', marker='s', markersize=5, mec='k')
@@ -208,14 +274,14 @@ plt.figure()
 ##plt.plot(xdata, ydata4_norm, 'lightgreen', ls = 'none', marker='s', markersize=5, mec='k')
 ##plt.plot(xdata, ydata5_norm, 'lightgreen', ls = 'none', marker='s', markersize=5, mec='k')
 ##plt.plot(xdata, ydata6_norm, 'lightgreen', ls = 'none', marker='s', markersize=5, mec='k')
-#plt.plot(xdata, ydata_avg, 'k+', label='data', marker='s', markersize=5, mec='k')
+#plt.plot(xdata, ydata_avg, 'k+', ls = 'none', marker='s', markersize=7, mec='k')
 #plt.plot(trialX, yHYP1, '#d5f4e6',ls='dotted')
 #plt.plot(trialX, yHYP2, '#80ced6',ls='dotted')
 #plt.plot(trialX, yHYP3, '#fefbd8',ls='dotted')
 ##plt.plot(trialX, yHYP4, 'lightgreen',ls='--')
 ##plt.plot(trialX, yHYP5, 'lightgreen',ls='--')
 ##plt.plot(trialX, yHYP6, 'lightgreen',ls='--')
-#plt.plot(trialX, yHYPavg, 'k-',ls='-', label='fit')
+#plt.plot(trialX, yHYPavg, 'black',ls='-', lw='4')
 #
 #plt.plot(RFPxdata, Rydata2_norm, 'pink', ls = 'none', marker='s', markersize=6)
 #plt.plot(RFPxdata, Rydata4_norm, 'pink', ls = 'none', marker='s', markersize=6)
@@ -231,37 +297,48 @@ plt.figure()
 #plt.plot(xdata_nanoBIT, nano1_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
 #plt.plot(xdata_nanoBIT, nano2_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
 #plt.plot(xdata_nanoBIT, nano3_norm, 'lightgray', ls = 'none', marker='s', markersize=6)
-plt.plot(xdata_nanoBIT, nano4_norm, '#bccad6', ls = 'none', marker='s', markersize=5, mec='k')
-plt.plot(xdata_nanoBIT, nano5_norm, '#8d9db6', ls = 'none', marker='s', markersize=5, mec='k')
-plt.plot(xdata_nanoBIT, nano6_norm, '#667292', ls = 'none', marker='s', markersize=5, mec='k')
+plt.plot(xdata_nanoBIT, nano10_norm, 'lightblue', ls = 'none', marker='s', markersize=5)
+plt.plot(xdata_nanoBIT, nano11_norm, 'lightblue', ls = 'none', marker='s', markersize=5)
+plt.plot(xdata_nanoBIT, nano12_norm, 'lightblue', ls = 'none', marker='s', markersize=5)
 #plt.plot(xdata_nanoBIT, nano7_norm, '#f1e3dd', ls = 'none', marker='s', markersize=5, mec='k')
 #plt.plot(xdata_nanoBIT, nano8_norm, '#cfe0e8', ls = 'none', marker='s', markersize=5, mec='k')
 #plt.plot(xdata_nanoBIT, nano9_norm, 'lightgray', ls = 'none', marker='s', markersize=5, mec='k')
-plt.plot(xdata_nanoBIT, nano_ydata_avg, 'k+', ls = 'none', marker='s', markersize=5, label='data', mec='k')
+plt.plot(xdata_nanoBIT, nano_ydata_avg, 'blue', ls = 'none', marker='s', markersize=5)
 #plt.plot(trialX, nanoHYP1, 'lightgray',ls='--')
 #plt.plot(trialX, nanoHYP2, 'lightgray',ls='--')
 #plt.plot(trialX, nanoHYP3, 'lightgray',ls='--')
-plt.plot(trialX, nanoHYP4, '#bccad6',ls='dotted')
-plt.plot(trialX, nanoHYP5, '#8d9db6',ls='dotted')
-plt.plot(trialX, nanoHYP6, '#667292',ls='dotted')
-#plt.plot(trialX, nanoHYP7, '#f1e3dd',ls='dotted')
-#plt.plot(trialX, nanoHYP8, '#cfe0e8',ls='dotted')
-#plt.plot(trialX, nanoHYP9, 'yellow',ls='--')
-plt.plot(trialX, nanoHYPavg, 'black',ls='-', label='fit')
+#plt.plot(trialX, nanoHYP4, '#bccad6',ls='dotted')
+#plt.plot(trialX, nanoHYP5, '#8d9db6',ls='dotted')
+#plt.plot(trialX, nanoHYP6, '#667292',ls='dotted')
+plt.plot(trialX, nanoHYP10, 'lightblue',ls='--')
+plt.plot(trialX, nanoHYP11, 'lightblue',ls='--')
+plt.plot(trialX, nanoHYP12, 'lightblue',ls='--')
+plt.plot(trialX, nanoHYPavg, 'blue',ls='-', lw='4', label='-maltose')
 
 
+#plt.plot(xdata_nanoBIT, maltose1_norm, 'lightgray', ls = 'none', marker='s', markersize=5)
+#plt.plot(xdata_nanoBIT, maltose2_norm, 'lightgray', ls = 'none', marker='s', markersize=5)
+#plt.plot(xdata_nanoBIT, maltose3_norm, 'lightgray', ls = 'none', marker='s', markersize=5)
+#plt.plot(xdata_nanoBIT, maltose_ydata_avg, 'k+', ls = 'none', marker='s', markersize=5, mec='k')
+#plt.plot(trialX, maltoseHYP1, 'lightgray',ls='--')
+#plt.plot(trialX, maltoseHYP2, 'lightgray',ls='--')
+#plt.plot(trialX, maltoseHYP3, 'lightgray',ls='--')
+#plt.plot(trialX, maltoseHYPavg, 'black',ls='-', lw='4', label='+maltose')
+#
+#
 plt.errorbar(xdata_nanoBIT, nano_ydata_avg, yerr=nano_ydata_std, linestyle = "none", color = "black")
+#plt.errorbar(xdata_nanoBIT, maltose_ydata_avg, yerr=maltose_ydata_std, linestyle = "none", color = "black")
 
 
-plt.xlabel('FPP concentration (uM)')
+plt.xlabel(r'FPP concentration ($\mu$M)')
 plt.ylabel('Normalized response (AU)')
-#plt.title('FPP titration')
+plt.title('LgBIT-AR/MBP-SmBIT')
 
 #plt.errorbar(xdata, ydata_avg, yerr=ydata_std, linestyle = "none", color = "black")
 #plt.errorbar(RFPxdata, Rydata_avg, yerr=Rydata_std, linestyle = "none", color = "black")
 plt.xscale('linear', nonposy='clip')
 #plt.ylim(0.6, 1.05)
-plt.xlim(-1, 21)
+plt.xlim(-1, 205)
 
 
 plt.legend(loc=4)
