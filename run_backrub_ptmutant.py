@@ -2,17 +2,32 @@
 # shell command: /Users/anum/Desktop/ROSETTA/main/source/bin/backrub.macosclangrelease -database /Users/anum/Desktop/ROSETTA/main/database/  -s XXX.pdb -ignore_unrecognized_res -ex1 -ex2 -extrachi_cutoff 0 -backrub:ntrials 1000 -resfile resYYY.res
 
 import sys, os
+import shutil
 
-# pdbname = input("What is your .pdb file called? Include .pdb. ")
-
-# for i in range(129):
 from subprocess import call
 import shlex
 
-numres = input("How many residues does your structure have?" )
+chainletter_list = ["A", "B", "C", "D", "E"]
 
-for i in range(numres):
-    resfile = "res" + str(i+1) + ".res"
-    shellstring = "/Users/anum/Desktop/ROSETTA/main/source/bin/backrub.macosclangrelease -database /Users/anum/Desktop/ROSETTA/main/database/  -s 7msf_monomer.pdb -ignore_unrecognized_res -ex1 -ex2 -extrachi_cutoff 0 -backrub:ntrials 1000 -resfile " + resfile
+numchains = input("How many chains does your structure have? ")
+for j in range(numchains):
 
-    call(shlex.split(shellstring))
+    chainletter = chainletter_list[j]
+    numres = input("How many residues does chain " + chainletter + " of your structure have? " )
+
+    chainfolder = "chain" + chainletter
+    os.makedirs(chainfolder)
+
+    for i in range(numres):
+        resfile = "res" + str(i+1) + ".res"
+        resfolder = "res" + str(i+1)
+        path = chainfolder + "/" + resfolder
+        os.makedirs(path)
+        
+        shellstring = "/Users/anum/Desktop/ROSETTA/main/source/bin/backrub.macosclangrelease -database /Users/anum/Desktop/ROSETTA/main/database/  -s 7msf_noH2O_noRNA.pdb -ignore_unrecognized_res -ex1 -ex2 -extrachi_cutoff 0 -backrub:ntrials 1000 -resfile " + chainletter + "_" + resfile
+
+        call(shlex.split(shellstring))
+        shutil.move("/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/7msf_noH2O_noRNA_0001.pdb", "/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/" + "/" + chainfolder + "/" +resfolder + "/" + "7msf_noH2O_noRNA_0001.pdb")
+        shutil.move("/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/7msf_noH2O_noRNA_0001_low.pdb", "/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/"  + "/" + chainfolder + "/" + resfolder + "/" + "7msf_noH2O_noRNA_0001_low.pdb")
+        shutil.move("/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/7msf_noH2O_noRNA_0001_last.pdb", "/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/" +  "/" + chainfolder + "/" + resfolder + "/" + "7msf_noH2O_noRNA_0001_last.pdb")
+        shutil.move("/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/score.sc", "/Users/anum/Dropbox/Research/Structures/MS2/backrub/trial4_ptmut_assembly/"  + "/" + chainfolder + "/" + resfolder + "/" + "score.sc")

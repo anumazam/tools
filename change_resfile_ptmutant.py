@@ -13,7 +13,7 @@ for j in range(numchains):
 
     for i in range(numres):
         x = str(i+1)
-        tempfilename = ("res" + x + ".res")
+        tempfilename = (chainletter + "_res" + x + ".res")
 
         f = open(tempfilename, "w+")
         f.write("NATAA \nSTART \n* A NATAA \n" + x + " " + chainletter + " ALLAA")
