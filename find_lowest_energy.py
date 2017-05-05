@@ -16,16 +16,10 @@ for seq_record in SeqIO.parse(path, "fasta"):
     seqIDs.append(seq_record.id)
     sequences.append(str(seq_record.seq))
 
-#print seqIDs
-#print sequences
-#print all_energies
-
 lowest_energy = np.amin(map(float, all_energies))
-print "lowest energy: " + str(lowest_energy)
-
 
 for i in [i for i,x in enumerate(map(float, all_energies)) if x == lowest_energy]:
-    position = i+1
-    print "trial #" + str(position)
+    position = i
 
+print ">" + seqIDs[position]
 print sequences[position]
