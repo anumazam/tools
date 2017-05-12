@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 # find the lowest energy sequence in .fasta files from coupled moves output.
 
 from Bio import SeqIO
