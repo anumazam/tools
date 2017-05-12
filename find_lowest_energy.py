@@ -7,7 +7,7 @@ from os import listdir
 import numpy as np
 
 loops = 7
-folder = "20170510_LacI_IPTG"
+folder = "20170510_LacI_IPTG/20170511_withH"
 
 for n in range(1, loops + 1):
     
