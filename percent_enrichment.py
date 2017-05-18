@@ -3,7 +3,11 @@
 # calculate percent enrichment for each residue for a position in a designed loop
 
 from Bio import SeqIO
+
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import pylab as plt
 
 nativeseq = raw_input("What is the native sequence? ")
 seqfile = raw_input("What is the name of your sequences file? ")
@@ -21,6 +25,12 @@ for seq_record in SeqIO.parse(path, "fasta"):
 
 
 temp = 0
+fig, axs = plt.subplots(6, 2)
+fig.subplots_adjust(hspace = .5, wspace=.001)
+tick_spacing = 1
+x_labels = [' ', ' ', 'A', 'C', 'E', 'D', 'G', 'F', 'I', 'H', 'K', 'M', 'L', 'N', 'Q', 'P', 'S', 'R', 'T', 'W', 'V', 'Y']
+
+axs = axs.ravel()
 
 for m in range(0, numres):
     
@@ -37,11 +47,14 @@ for m in range(0, numres):
             res_dict[k] = temp
             temp = 0
 
-    plt.bar(range(len(res_dict)), res_dict.values(), align = 'center')
-    plt.xticks(range(len(res_dict)), list(res_dict.keys()))
-    plt.title("Residue #" + str(m+1) + ": " + nativeseq[m])
-    plt.ylabel("Frequency")
-    plt.xlabel("Designed residue")
+# graphing each subplot
+    axs[m].xaxis.set_major_locator(ticker.MultipleLocator(tick_spacing))
+    axs[m].bar(range(len(res_dict)), res_dict.values(), align = 'center')
+    axs[m].set_title("Residue #" + str(m + 1) + ": " + nativeseq[m], size = 6)
+    axs[m].set_xticklabels(x_labels)
+    axs[m].set_ylim(0, 20)
+    axs[m].tick_params(direction='out', length=2, labelsize = 6)
 
-    plt.show()
+fig.delaxes(axs[6,1])
+plt.show()
 
