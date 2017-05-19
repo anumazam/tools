@@ -15,7 +15,7 @@ def first_shell_res( userSelection ):
     
     list_FSresidues = "\n".join(str(x) for x in stored.FSresidues )
     
-    filename = ligand_name + ".res"
+    filename = ligand_name + "_firstshell.res"
 
     f = open(resfile_path + filename, "w+")
     f.write("NATRO \nSTART \n" + list_FSresidues)
