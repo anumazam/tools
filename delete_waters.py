@@ -12,12 +12,14 @@ ligand2_location = "resi 999"
 
 # pymol function to find and delete the water molecules
 def delete_waters():
-    near_waters = "waters_near_" + ligand_name
+    lig1_waters = "lig1_waters"
+    lig2_waters = "lig2_waters"
     waters_to_delete = "waters_far_" + ligand_name
     
     # select the correct water atoms
-    cmd.select(near_waters, ligand1_location + " around 5 or " + ligand2_location + " around 5")
-    cmd.select(waters_to_delete, "hetatm and not " + near_waters + " and not " + ligand2_location)
+    cmd.select(lig1_waters, ligand1_location + " around 4 and hetatm")
+    cmd.select(lig2_waters, ligand2_location + " around 4 and hetatm")
+    cmd.select(waters_to_delete, "hetatm and not " + lig1_waters + " and not " + lig2_waters + " and not " + ligand1_location + " and not " + ligand2_location)
     
     # delete the water atoms that are far from the ligand(s)
     cmd.remove(waters_to_delete)
