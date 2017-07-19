@@ -24,6 +24,12 @@ def delete_waters():
     # delete the water atoms that are far from the ligand(s)
     cmd.remove(waters_to_delete)
     
+    # show remaining waters as spheres and ligands as sticks
+    cmd.show_as("spheres", lig1_waters)
+    cmd.show_as("spheres", lig2_waters)
+    cmd.show_as("sticks", ligand1_location)
+    cmd.show_as("sticks", ligand2_location)
+    
     # remove selection
     cmd.delete(waters_to_delete)
 
